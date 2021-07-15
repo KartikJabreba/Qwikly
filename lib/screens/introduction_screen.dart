@@ -31,6 +31,7 @@ class _IntroductionState extends State<Introduction> {
 
   void _showModalSheet() {
     showModalBottomSheet(
+        backgroundColor: Colors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(20),
@@ -39,8 +40,11 @@ class _IntroductionState extends State<Introduction> {
         context: context,
         builder: (builder) {
           return new Container(
-            height: 450.0,
+            height: 460.0,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
               color: Colors.white,
             ),
             child: Padding(
