@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qwikly/screens/introduction_screen.dart';
-import 'package:qwikly/screens/login_screen.dart';
+import 'package:qwikly/screens/setup3.dart';
+import 'package:qwikly/screens/setup_4.dart';
 
 void main() {
   runApp(Main());
@@ -11,6 +11,6 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Introduction());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MyAppp());
   }
 }

@@ -4,6 +4,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:qwikly/utils/appColors.dart';
 import 'package:qwikly/utils/appImages.dart';
 import 'package:qwikly/utils/styles.dart';
+import 'package:qwikly/widget/otp.dart';
 
 class Introduction extends StatefulWidget {
   @override
@@ -27,6 +28,20 @@ class _IntroductionState extends State<Introduction> {
       width: double.infinity,
       alignment: Alignment.center,
     );
+  }
+
+  void _showOtpSheet() {
+    showModalBottomSheet(
+        backgroundColor: Colors.red,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        context: context,
+        builder: (builder) {
+          return Otp();
+        });
   }
 
   void _showModalSheet() {
@@ -116,7 +131,7 @@ class _IntroductionState extends State<Introduction> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            onPressed: () {},
+                            onPressed: _showOtpSheet,
                             child: Text(
                               'Continue',
                               style: rubikBold.copyWith(color: Colors.white),
