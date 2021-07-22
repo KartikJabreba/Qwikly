@@ -10,8 +10,6 @@ import '../addAtributeProvider.dart';
 import 'addAtributes.dart';
 
 class SellScreen extends StatefulWidget {
- 
-
   @override
   _SellScreenState createState() => _SellScreenState();
 }
@@ -34,7 +32,7 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget dropDownItems(String hinText, List<String> _listData) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.only(left: 8, top: 8),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -84,7 +82,7 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget textInputPanel(String hintext) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.only(left: 8, top: 8),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -112,7 +110,8 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget textButton(String text) {
     return Container(
-      height: 60,
+      height: 50,
+      width: 75,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
           color: AppColors.RED, borderRadius: BorderRadius.circular(6)),
@@ -155,7 +154,6 @@ class _SellScreenState extends State<SellScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Consumer<AttributesProvider>(builder: (context, data, child) {
       return Scaffold(
         body: SingleChildScrollView(
@@ -184,7 +182,7 @@ class _SellScreenState extends State<SellScreen> {
                 ),
                 Text(
                   'Tell us what you will be selling. Be specific and detailed orieted. Dont promise something which you can’t deliver.',
-                  style: sfMedium.copyWith(
+                  style: sfRegular.copyWith(
                     color: AppColors.TEXTCOLOR,
                   ),
                 ),
@@ -210,7 +208,8 @@ class _SellScreenState extends State<SellScreen> {
                       images.length == 0
                           ? SizedBox()
                           : Container(
-                              height: 90,
+                              height: 60,
+                              width: 60,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
@@ -228,9 +227,13 @@ class _SellScreenState extends State<SellScreen> {
                       GestureDetector(
                         onTap: pickImage,
                         child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.CONTAINER_COLOR,
+                              ),
+                              borderRadius: BorderRadius.circular(6)),
                           height: 60,
                           width: 60,
-                          color: AppColors.CONTAINER_COLOR,
                           child: Icon(
                             Icons.add,
                             color: Colors.red,
@@ -302,8 +305,8 @@ class _SellScreenState extends State<SellScreen> {
                       Wrap(
                         spacing: 6.0,
                         runSpacing: 6.0,
-                        children: List<Widget>.generate(
-                            data.attribute .length, (int index) {
+                        children: List<Widget>.generate(data.attribute.length,
+                            (int index) {
                           return Chip(
                             avatar: Icon(Icons.clear, color: Colors.white),
                             shape: RoundedRectangleBorder(
@@ -355,6 +358,68 @@ class _SellScreenState extends State<SellScreen> {
                 SizedBox(
                   height: 10,
                 ),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.BORDER_COLOR,
+                      ),
+                      borderRadius: BorderRadius.circular(6)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Add tag for search',
+                        style: sfMedium.copyWith(
+                            color: AppColors.LIGHT_GREY,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      GestureDetector(
+                        child: Text(
+                          '+ Add New',
+                          style: sfMedium.copyWith(
+                            color: AppColors.TEXTCOLOR,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddAttributes()),
+                          );
+                        },
+                      ),
+                      Divider(),
+                      Wrap(
+                        spacing: 6.0,
+                        runSpacing: 6.0,
+                        children: List<Widget>.generate(data.attribute.length,
+                            (int index) {
+                          return Chip(
+                            avatar: Icon(Icons.clear, color: Colors.white),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                              Radius.circular(6),
+                            )),
+                            side: BorderSide(),
+                            backgroundColor: Colors.black,
+                            labelStyle: sfMedium.copyWith(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal),
+                            label: Text(data.attribute[index]),
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: 30,
+                ),
+
                 Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -379,7 +444,7 @@ class _SellScreenState extends State<SellScreen> {
                 ),
 
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   children: [
@@ -391,7 +456,7 @@ class _SellScreenState extends State<SellScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
               ],
             ),

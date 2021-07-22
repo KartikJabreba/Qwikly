@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 const sfMedium = TextStyle(
-  fontSize:16,
+  fontSize: 16,
   fontFamily: 'SourceSansPro',
-  fontWeight: FontWeight.w600	,
+  fontWeight: FontWeight.w600,
 );
-const sfBold = TextStyle(
+const sfRegular = TextStyle(
+  fontSize: 16,
   fontFamily: 'SourceSansPro',
-  fontWeight: FontWeight.bold
+  fontWeight: FontWeight.w600,
 );
-
-
+const sfBold =
+    TextStyle(fontFamily: 'SourceSansPro', fontWeight: FontWeight.bold);
