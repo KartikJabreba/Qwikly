@@ -8,7 +8,11 @@ const sfMedium = TextStyle(
 const sfRegular = TextStyle(
   fontSize: 16,
   fontFamily: 'SourceSansPro',
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w400,
 );
 const sfBold =
-    TextStyle(fontFamily: 'SourceSansPro', fontWeight: FontWeight.bold);
+    TextStyle(
+  fontSize: 16,
+  fontFamily: 'SourceSansProBold',
+  
+);

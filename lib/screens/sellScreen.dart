@@ -32,7 +32,7 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget dropDownItems(String hinText, List<String> _listData) {
     return Container(
-      padding: EdgeInsets.only(left: 8, top: 8),
+      padding: EdgeInsets.only(left: 10, top: 10,bottom: 10,right:10),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -48,32 +48,35 @@ class _SellScreenState extends State<SellScreen> {
                 fontSize: 12,
                 fontWeight: FontWeight.bold),
           ),
-          DropdownButtonFormField(
-            icon: Icon(
-              Icons.chevron_right,
-              color: AppColors.TEXTCOLOR,
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-
-              // labelText: hinText,
-              // labelStyle: sfMedium.copyWith(
-              //     color: AppColors.LIGHT_GREY,
-              //     fontSize: 12,
-              //     fontWeight: FontWeight.bold),
-              hintText: 'Choose',
-              hintStyle: sfMedium.copyWith(
+          Container(
+            height:25,
+            child: DropdownButtonFormField(
+              icon: Icon(
+                Icons.chevron_right,
                 color: AppColors.TEXTCOLOR,
               ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+
+                // labelText: hinText,
+                // labelStyle: sfMedium.copyWith(
+                //     color: AppColors.LIGHT_GREY,
+                //     fontSize: 12,
+                //     fontWeight: FontWeight.bold),
+                hintText: 'Choose',
+                hintStyle: sfMedium.copyWith(
+                  color: AppColors.TEXTCOLOR,
+                ),
+              ),
+              value: _selectedLocation,
+              onChanged: (newValue) {},
+              items: _listData.map((location) {
+                return DropdownMenuItem(
+                  child: new Text(location),
+                  value: location,
+                );
+              }).toList(),
             ),
-            value: _selectedLocation,
-            onChanged: (newValue) {},
-            items: _listData.map((location) {
-              return DropdownMenuItem(
-                child: new Text(location),
-                value: location,
-              );
-            }).toList(),
           ),
         ],
       ),
@@ -156,25 +159,43 @@ class _SellScreenState extends State<SellScreen> {
   Widget build(BuildContext context) {
     return Consumer<AttributesProvider>(builder: (context, data, child) {
       return Scaffold(
+        appBar: AppBar(
+        
+          centerTitle: true,
+        backgroundColor:AppColors.HEADER_COOR,
+          elevation: 0,
+           
+            leading: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SellScreen()),
+                            );
+                          },
+                          icon: Icon(Icons.keyboard_arrow_left_outlined)),
+            actions: [
+              Align(alignment: Alignment.center,
+                child: Text(
+                  'Help  ',
+                  style: sfMedium.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ]),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 40, left: 10, right: 10),
+            padding: EdgeInsets.only(top: 40, left: 20, right: 20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Help',
-                      style: sfMedium.copyWith(
-                        color: AppColors.TEXTCOLOR,
-                      ),
-                    )),
                 Text(
                   'What will you sell?',
                   style: sfBold.copyWith(
                     color: AppColors.HEADTEXTCOLOR,
-                    fontSize: 18,
+                    fontSize: 22,
                   ),
                 ),
                 SizedBox(
@@ -200,6 +221,10 @@ class _SellScreenState extends State<SellScreen> {
                       fontSize: 12,
                       fontWeight: FontWeight.bold),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -209,13 +234,14 @@ class _SellScreenState extends State<SellScreen> {
                           ? SizedBox()
                           : Container(
                               height: 60,
-                              width: 60,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
                                   itemCount: images.length,
                                   itemBuilder: (context, index) {
                                     return Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
                                       height: 60,
                                       width: 60,
                                       child: Image.file(
@@ -244,6 +270,7 @@ class _SellScreenState extends State<SellScreen> {
                     ],
                   ),
                 ),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -302,27 +329,55 @@ class _SellScreenState extends State<SellScreen> {
                         },
                       ),
                       Divider(),
-                      Wrap(
-                        spacing: 6.0,
-                        runSpacing: 6.0,
-                        children: List<Widget>.generate(data.attribute.length,
-                            (int index) {
-                          return Chip(
-                            avatar: Icon(Icons.clear, color: Colors.white),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(6),
-                            )),
-                            side: BorderSide(),
-                            backgroundColor: Colors.black,
-                            labelStyle: sfMedium.copyWith(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal),
-                            label: Text(data.attribute[index]),
-                          );
-                        }),
-                      ),
+                      Wrap(spacing: 6.0, runSpacing: 6.0, children: [
+                        data.sizeTag == null
+                            ? SizedBox(
+                                height: 0,
+                                width: 0,
+                              )
+                            : Chip(
+                                avatar: Icon(Icons.clear, color: Colors.white),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
+                                )),
+                                side: BorderSide(),
+                                backgroundColor: Colors.black,
+                                labelStyle: sfMedium.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
+                                label: Text('Size: ' + data.sizeTag),
+                              ),
+                        Chip(
+                          avatar: Icon(Icons.clear, color: Colors.white),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                            Radius.circular(6),
+                          )),
+                          side: BorderSide(),
+                          backgroundColor: Colors.black,
+                          labelStyle: sfMedium.copyWith(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal),
+                          label: Text('Color: ' + data.colot),
+                        ),
+                        Chip(
+                          avatar: Icon(Icons.clear, color: Colors.white),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                            Radius.circular(6),
+                          )),
+                          side: BorderSide(),
+                          backgroundColor: Colors.black,
+                          labelStyle: sfMedium.copyWith(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal),
+                          label: Text('Waist: ' + data.waist.toString()),
+                        )
+                      ]),
                     ],
                   ),
                 ),

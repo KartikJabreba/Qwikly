@@ -22,10 +22,17 @@ class _AddAttributesState extends State<AddAttributes> {
     'C',
     'D',
   ];
+  List<String> _size = [
+    'S',
+    'M',
+    'L',
+    'XL',
+  ];
   List<String> _tags = ['Jeans', 'Fashion'];
   String? _selectedLocation;
 
-  Widget dropDownItems(String hinText, List<String> _listData) {
+  Widget dropDownItems(
+      String hinText, List<String> _listData, AttributesProvider data) {
     return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -43,26 +50,31 @@ class _AddAttributesState extends State<AddAttributes> {
                 fontSize: 12,
                 fontWeight: FontWeight.bold),
           ),
-          DropdownButtonFormField(
-            icon: Icon(
-              Icons.chevron_right,
-              color: AppColors.TEXTCOLOR,
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Choose',
-              hintStyle: sfMedium.copyWith(
+          Container(
+            height: 25,
+            child: DropdownButtonFormField<String>(
+              icon: Icon(
+                Icons.chevron_right,
                 color: AppColors.TEXTCOLOR,
               ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Choose',
+                hintStyle: sfMedium.copyWith(
+                  color: AppColors.TEXTCOLOR,
+                ),
+              ),
+              value: _selectedLocation,
+              onChanged: (newValue) {
+                data.addSize(newValue!);
+              },
+              items: _listData.map((location) {
+                return DropdownMenuItem(
+                  child: new Text(location),
+                  value: location,
+                );
+              }).toList(),
             ),
-            value: _selectedLocation,
-            onChanged: (newValue) {},
-            items: _listData.map((location) {
-              return DropdownMenuItem(
-                child: new Text(location),
-                value: location,
-              );
-            }).toList(),
           ),
         ],
       ),
@@ -193,43 +205,43 @@ class _AddAttributesState extends State<AddAttributes> {
   Widget build(BuildContext context) {
     return Consumer<AttributesProvider>(builder: (context, data, child) {
       return Scaffold(
+        appBar: AppBar(
+            title: Text(
+              'Add Attributes',
+              style: sfMedium.copyWith(
+                color: Colors.white,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: AppColors.HEADER_COOR,
+            elevation: 0,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SellScreen()),
+                  );
+                },
+                icon: Icon(Icons.keyboard_arrow_left_outlined)),
+            actions: [
+              Align(
+                alignment: Alignment.center,
+                child:IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+              )
+            ]),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(top: 40, left: 10, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SellScreen(
-                                       
-                                      )),
-                            );
-                          },
-                          icon: Icon(Icons.keyboard_arrow_left_outlined)),
-                      Text(
-                        'Add Attributes',
-                        style: sfMedium.copyWith(
-                          color: AppColors.TEXTCOLOR,
-                        ),
-                      ),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                    ]),
+                
+              
+                dropDownItems('Stock Status', _categories, data),
                 SizedBox(
                   height: 10,
                 ),
-                dropDownItems('Stock Status', _categories),
-                SizedBox(
-                  height: 10,
-                ),
-                dropDownItems('Size', _categories),
+                dropDownItems('Size', _size, data),
                 SizedBox(
                   height: 10,
                 ),
@@ -262,44 +274,65 @@ class _AddAttributesState extends State<AddAttributes> {
                   height: 10,
                 ),
                 Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.BORDER_COLOR,
+                      ),
+                      borderRadius: BorderRadius.circular(6)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Tags',
-                        style: sfMedium.copyWith(
-                            color: AppColors.LIGHT_GREY,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+                        child: Text(
+                          'Tags',
+                          style: sfMedium.copyWith(
+                              color: AppColors.LIGHT_GREY,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      Wrap(
-                        spacing: 6.0,
-                        runSpacing: 6.0,
-                        children: List<Widget>.generate(data.attribute.length,
-                            (int index) {
-                          return Chip(
-                            avatar: Icon(Icons.clear, color: Colors.white),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(6),
-                            )),
-                            side: BorderSide(),
-                            backgroundColor: Colors.black,
-                            labelStyle: sfMedium.copyWith(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal),
-                            label: Text(data.attribute[index]),
-                          );
-                        }),
+                      Container(
+                        padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 6.0,
+                          children: List<Widget>.generate(data.attribute.length,
+                              (int index) {
+                            return Chip(
+                              avatar: Icon(Icons.clear, color: Colors.white),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                Radius.circular(6),
+                              )),
+                              side: BorderSide(),
+                              backgroundColor: Colors.black,
+                              labelStyle: sfMedium.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal),
+                              label: Text(data.attribute[index]),
+                            );
+                          }),
+                        ),
                       ),
-
-                      //Divider(),
-                      ListTile(
-                        contentPadding: EdgeInsets.all(0),
-                        title: TextFormField(
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color: AppColors.BORDER_COLOR,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+                        child: TextFormField(
                           controller: _addNewAttribute,
                           decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  data.addAttribute(_addNewAttribute.text);
+                                },
+                                icon: Icon(Icons.add_circle_outline)),
                             hintText: 'Add New',
                             hintStyle: sfMedium.copyWith(
                                 color: AppColors.LIGHT_GREY,
@@ -308,11 +341,27 @@ class _AddAttributesState extends State<AddAttributes> {
                             border: InputBorder.none,
                           ),
                         ),
-                        trailing: IconButton(
-                            onPressed: () {
-                              data.addAttribute(_addNewAttribute.text);
-                            },
-                            icon: Icon(Icons.add)),
+                        // child: Container(
+                        //   height: 20,
+                        //   // child: ListTile(
+                        //   //   title: TextFormField(
+                        //   //     controller: _addNewAttribute,
+                        //   //     decoration: InputDecoration(
+                        //   //       hintText: 'Add New',
+                        //   //       hintStyle: sfMedium.copyWith(
+                        //   //           color: AppColors.LIGHT_GREY,
+                        //   //           fontSize: 14,
+                        //   //           fontWeight: FontWeight.bold),
+                        //   //       border: InputBorder.none,
+                        //   //     ),
+                        //   //   ),
+                        //   trailing: IconButton(
+                        //       onPressed: () {
+                        //         data.addAttribute(_addNewAttribute.text);
+                        //       },
+                        //       icon: Icon(Icons.add_circle_outline)),
+                        // ),
+                        // ),
                       )
                     ],
                   ),
@@ -325,6 +374,7 @@ class _AddAttributesState extends State<AddAttributes> {
                   height: 10,
                 ),
                 Container(
+                  padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.BORDER_COLOR,

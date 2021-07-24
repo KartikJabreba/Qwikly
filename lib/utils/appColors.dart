@@ -7,4 +7,5 @@ class AppColors {
   static const Color CONTAINER_COLOR = Color(0xFFF4F4F4);
   static const Color BORDER_COLOR = Color(0xFFEBEBEB);
   static const Color RED = Color(0xFFDB4437);
+  static const Color HEADER_COOR = Color(0xFFE41730);
 }
