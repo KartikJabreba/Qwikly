@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const sfMedium = TextStyle(
-  fontSize: 16,
+  fontSize: 14,
   fontFamily: 'SourceSansPro',
   fontWeight: FontWeight.w600,
 );

@@ -32,9 +32,8 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget dropDownItems(String hinText, List<String> _listData) {
     return Container(
-      height: 69,
-      // width: 200,
-      padding: EdgeInsets.only(left: 10, top: 10, bottom: 0, right: 0),
+     
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 5, right: 0),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -42,6 +41,7 @@ class _SellScreenState extends State<SellScreen> {
           borderRadius: BorderRadius.circular(6)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             hinText,
@@ -51,7 +51,7 @@ class _SellScreenState extends State<SellScreen> {
                 fontWeight: FontWeight.bold),
           ),
           Container(
-            height: 25,
+           height: 25,
             child: DropdownButtonFormField(
               isExpanded: true,
               icon: Icon(
@@ -61,11 +61,7 @@ class _SellScreenState extends State<SellScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
 
-                // labelText: hinText,
-                // labelStyle: sfMedium.copyWith(
-                //     color: AppColors.LIGHT_GREY,
-                //     fontSize: 12,
-                //     fontWeight: FontWeight.bold),
+              
                 hintText: 'Choose',
                 hintStyle: sfMedium.copyWith(
                   color: AppColors.TEXTCOLOR,
