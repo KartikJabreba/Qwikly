@@ -34,7 +34,8 @@ class _AddAttributesState extends State<AddAttributes> {
   Widget dropDownItems(
       String hinText, List<String> _listData, AttributesProvider data) {
     return Container(
-      padding: EdgeInsets.all(8),
+      height: 69,
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 0, right: 0),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -51,7 +52,7 @@ class _AddAttributesState extends State<AddAttributes> {
                 fontWeight: FontWeight.bold),
           ),
           Container(
-            height: 25,
+            height: 40,
             child: DropdownButtonFormField<String>(
               icon: Icon(
                 Icons.chevron_right,
@@ -226,7 +227,7 @@ class _AddAttributesState extends State<AddAttributes> {
             actions: [
               Align(
                 alignment: Alignment.center,
-                child:IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                child: IconButton(onPressed: () {}, icon: Icon(Icons.add)),
               )
             ]),
         body: SingleChildScrollView(
@@ -235,8 +236,6 @@ class _AddAttributesState extends State<AddAttributes> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
-              
                 dropDownItems('Stock Status', _categories, data),
                 SizedBox(
                   height: 10,

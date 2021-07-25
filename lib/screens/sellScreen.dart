@@ -32,7 +32,9 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget dropDownItems(String hinText, List<String> _listData) {
     return Container(
-      padding: EdgeInsets.only(left: 10, top: 10,bottom: 10,right:10),
+      height: 69,
+      // width: 200,
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 0, right: 0),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -49,8 +51,9 @@ class _SellScreenState extends State<SellScreen> {
                 fontWeight: FontWeight.bold),
           ),
           Container(
-            height:25,
+            height: 25,
             child: DropdownButtonFormField(
+              isExpanded: true,
               icon: Icon(
                 Icons.chevron_right,
                 color: AppColors.TEXTCOLOR,
@@ -85,7 +88,8 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget textInputPanel(String hintext) {
     return Container(
-      padding: EdgeInsets.only(left: 8, top: 8),
+      // margin: EdgeInsets.only(bottom: 6, top: 6),
+      padding: EdgeInsets.only(left: 6, top: 6),
       decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.BORDER_COLOR,
@@ -93,6 +97,7 @@ class _SellScreenState extends State<SellScreen> {
           borderRadius: BorderRadius.circular(6)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             hintext,
@@ -103,6 +108,7 @@ class _SellScreenState extends State<SellScreen> {
           ),
           TextFormField(
             decoration: InputDecoration(
+              isDense: true,
               border: InputBorder.none,
             ),
           ),
@@ -129,6 +135,7 @@ class _SellScreenState extends State<SellScreen> {
 
   Widget addAttributeWidget(String hintext) {
     return Container(
+      // margin: EdgeInsets.only(bottom: 6, top: 6),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
           border: Border.all(
@@ -160,22 +167,20 @@ class _SellScreenState extends State<SellScreen> {
     return Consumer<AttributesProvider>(builder: (context, data, child) {
       return Scaffold(
         appBar: AppBar(
-        
-          centerTitle: true,
-        backgroundColor:AppColors.HEADER_COOR,
-          elevation: 0,
-           
+            centerTitle: true,
+            backgroundColor: AppColors.HEADER_COOR,
+            elevation: 0,
             leading: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SellScreen()),
-                            );
-                          },
-                          icon: Icon(Icons.keyboard_arrow_left_outlined)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SellScreen()),
+                  );
+                },
+                icon: Icon(Icons.keyboard_arrow_left_outlined)),
             actions: [
-              Align(alignment: Alignment.center,
+              Align(
+                alignment: Alignment.center,
                 child: Text(
                   'Help  ',
                   style: sfMedium.copyWith(
